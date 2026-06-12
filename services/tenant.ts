@@ -7,6 +7,7 @@ import type {
   PublicSurveySubmission,
   Survey,
   SurveyCreate,
+  SurveyResponse,
   WorkspaceAnalytics
 } from "@/types/tenant";
 
@@ -37,6 +38,11 @@ export async function getDashboardOverview() {
 
 export async function getSurveys(companySlug: string) {
   const { data } = await api.get<Survey[]>(`/api/companies/${companySlug}/surveys`);
+  return data;
+}
+
+export async function getCompanyResponses(companySlug: string) {
+  const { data } = await api.get<SurveyResponse[]>(`/api/companies/${companySlug}/responses`);
   return data;
 }
 

@@ -20,10 +20,11 @@ import {
   YAxis
 } from "recharts";
 import { AppShell } from "@/components/app-shell";
+import { SurveyResponses } from "@/components/survey-responses";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCurrentSession, useLogout } from "@/hooks/use-auth";
-import { useDashboardOverview } from "@/hooks/use-tenant";
+import { useCompanyResponses, useDashboardOverview } from "@/hooks/use-tenant";
 
 const colors = ["#14b8a6", "#22c55e", "#f59e0b", "#ef4444"];
 
@@ -36,6 +37,8 @@ export default function DashboardPage() {
 
   const session = useCurrentSession();
   const { data, isLoading, isError } = useDashboardOverview(ready);
+  const companySlug = session.data?.company.slug;
+  const responses = useCompanyResponses(companySlug);
 
   function signOut() {
     logout();
@@ -137,6 +140,8 @@ export default function DashboardPage() {
                     ))}
                   </div>
                 </section>
+
+                <SurveyResponses responses={responses.data} isLoading={responses.isLoading} />
               </>
             )}
           </>

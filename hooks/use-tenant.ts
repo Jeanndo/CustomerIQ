@@ -3,6 +3,7 @@ import {
   createCompany,
   createSurvey,
   getAdminMetrics,
+  getCompanyResponses,
   getDashboardOverview,
   getCompany,
   getPlatformStats,
@@ -31,6 +32,14 @@ export function useDashboardOverview(enabled: boolean) {
 
 export function useSurveys(slug: string) {
   return useQuery({ queryKey: ["surveys", slug], queryFn: () => getSurveys(slug), enabled: Boolean(slug) });
+}
+
+export function useCompanyResponses(slug: string | undefined) {
+  return useQuery({
+    queryKey: ["company-responses", slug],
+    queryFn: () => getCompanyResponses(slug ?? ""),
+    enabled: Boolean(slug)
+  });
 }
 
 export function useCreateCompany() {

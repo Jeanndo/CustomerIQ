@@ -51,6 +51,19 @@ export type PublicSurveyResult = {
   sentiment: string;
 };
 
+export type SurveyResponse = {
+  id: number;
+  survey_id: number;
+  survey_title: string;
+  submitted_at: string;
+  completion_seconds?: number | null;
+  answers: Record<string, string | number | boolean>;
+  satisfaction_score?: number | null;
+  customer_health_score?: number | null;
+  risk_level?: string | null;
+  sentiment?: string | null;
+};
+
 export type WorkspaceAnalytics = {
   stats: {
     total_responses: number;

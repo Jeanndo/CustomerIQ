@@ -19,15 +19,17 @@ import {
   YAxis
 } from "recharts";
 import { AppShell } from "@/components/app-shell";
+import { SurveyResponses } from "@/components/survey-responses";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useWorkspaceAnalytics } from "@/hooks/use-tenant";
+import { useCompanyResponses, useWorkspaceAnalytics } from "@/hooks/use-tenant";
 
 const colors = ["#14b8a6", "#22c55e", "#f59e0b", "#ef4444"];
 
 export default function WorkspacePage({ params }: { params: Promise<{ companySlug: string }> }) {
   const { companySlug } = use(params);
   const { data, isLoading, isError } = useWorkspaceAnalytics(companySlug);
+  const responses = useCompanyResponses(companySlug);
 
   return (
     <AppShell>
@@ -99,6 +101,8 @@ export default function WorkspacePage({ params }: { params: Promise<{ companySlu
                 ))}
               </div>
             </section>
+
+            <SurveyResponses responses={responses.data} isLoading={responses.isLoading} />
           </>
         )}
       </main>
